@@ -54,12 +54,13 @@ bo       INTEGER
 ''')
 
 for i in range(8):
-    url = base_url + str(i+1)
+    url = base_url + str(i + 1)
     html = urllib.request.urlopen(url)
-    soup = BeautifulSoup(html,'html.parser')
-    links = soup.findAll('div',class_ = 'text_t')
+    soup = BeautifulSoup(html, 'html.parser')
+    links = soup.findAll('div', class_='text_t')
     for link in links:
-        print (link.find('a').get('href'))
+        # print (link.find('a').get('href'))
+
         # num = re.findall('[0-9]+',link.find('a').get('href'))
         new_urls.append('http://www.wanplus.com' + link.find('a').get('href'))
 
@@ -67,33 +68,34 @@ print (new_urls)
 
 for url in new_urls:
     html = urllib.request.urlopen(url)
-    soup = BeautifulSoup(html,'html.parser')
-    title = soup.find('div',class_ = 'caption-outer')
-    duration = soup.find('div',class_ = 'caption-outer').find('span').text
+    soup = BeautifulSoup(html, 'html.parser')
+    title = soup.find('div', class_='caption-outer')
+    duration = soup.find('div', class_='caption-outer').find('span').text
     str = title.contents[1].text
     if str[0] == ' ':
         str = str[1:]
-    print (str)
+    # print (str)
     bo = 0
-    games = soup.findAll('div',class_ = 'match-team')
+    games = soup.findAll('div', class_='match-team')
     for game in games:
-        team = game.findAll('span',class_ = 'team-name')
-        result = game.find('em',class_ = 'team-vs').findAll('i')
+        team = game.findAll('span', class_='team-name')
+        result = game.find('em', class_='team-vs').findAll('i')
         team_name = [i.text for i in team]
         game_result = [int(i.text) for i in result]
-        if max(game_result) == 1:
-            if sum(game_result) == 1:
-                bo = 1
-            elif sum(game_result) == 2:
-                bo = 2
-        elif max(game_result) == 2:
-            bo = 3
-        elif max(game_result) == 3:
-            bo = 5
-        cur.execute('''INSERT OR IGNORE INTO Games (series, duration, team1, team2, result1,
-                       result2, bo) VALUES ( ?, ?, ?, ?, ?, ?, ? )''',( str, duration, team_name[0], team_name[1],
-                                                                    game_result[0], game_result[1], bo ))
-        print (bo)
+        if len(game_result) > 0:
+            if max(game_result) == 1:
+                if sum(game_result) == 1:
+                    bo = 1
+                elif sum(game_result) == 2:
+                    bo = 2
+            elif max(game_result) == 2:
+                bo = 3
+            elif max(game_result) == 3:
+                bo = 5
+            cur.execute('''INSERT OR IGNORE INTO Games (series, duration, team1, team2, result1,
+                           result2, bo) VALUES ( ?, ?, ?, ?, ?, ?, ? )''', ( str, duration, team_name[0], team_name[1],
+                                                                             game_result[0], game_result[1], bo))
+            print (bo)
 
 
 conn.commit()
