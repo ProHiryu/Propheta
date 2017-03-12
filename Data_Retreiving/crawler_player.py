@@ -3,7 +3,7 @@ from selenium import webdriver
 import time
 import sqlite3
 
-driver = webdriver.Firefox()
+driver = webdriver.Chrome()
 driver.get("http://www.wanplus.com/lol/playerstats")
 
 conn = sqlite3.connect('lol.sqlite')
@@ -38,7 +38,7 @@ CREATE TABLE Player (
 );
 ''')
 
-for i in range(144):
+for i in range(5):
     table = driver.find_element_by_tag_name('table')
     table_rows = table.find_elements_by_tag_name('tr')
     for tr in table_rows:
@@ -67,7 +67,7 @@ for i in range(144):
                                                               row[8], row[9], row[10], row[0] ))
         print(row)
 
-    page_button = driver.find_element_by_id('DataTables_Table_0_next')
+    page_button = driver.find_element_by_xpath('//*[@id="DataTables_Table_0_next"]')
     page_button.click()
     time.sleep(1)
 
@@ -76,3 +76,5 @@ for i in range(144):
     time.sleep(1)
 
 conn.commit()
+
+driver.quit()

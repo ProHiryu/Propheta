@@ -3,7 +3,7 @@ from selenium import webdriver
 import time
 import sqlite3
 
-driver = webdriver.Firefox()
+driver = webdriver.Chrome()
 driver.get("http://www.wanplus.com/lol/teamstats")
 
 conn = sqlite3.connect('lol.sqlite')
@@ -35,7 +35,7 @@ CREATE TABLE Team (
 );
 ''')
 
-for i in range(16):
+for i in range(1):
     table = driver.find_element_by_tag_name('table')
     table_rows = table.find_elements_by_tag_name('tr')
     for tr in table_rows:
@@ -73,3 +73,5 @@ for i in range(16):
     time.sleep(1)
 
 conn.commit()
+
+driver.quit()
