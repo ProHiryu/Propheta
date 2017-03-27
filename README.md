@@ -7,11 +7,9 @@
   - Selenium
   - Sqlite3
   - PyQt4
-  - 
+  -
 + Mechine Learning:
   - SVM
-  - DL
-  - Tensor Flow
-  - 
-  
+  - Tensorflow
+
 ### **just a little project by someone**
