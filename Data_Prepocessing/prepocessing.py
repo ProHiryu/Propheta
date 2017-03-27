@@ -70,7 +70,7 @@ for line in df.values:
     team1.append(team_order_change(line[2]))
     team2.append(team_order_change(line[3]))
 
-df.fillna(value=0)
+df = df.fillna(value=0)
 
 df['team1'] = team1
 df['team2'] = team2
@@ -78,11 +78,13 @@ df['team2'] = team2
 X = np.array(df[['team1', 'team2']])
 x = preprocessing.scale(X)
 
+print(x)
+print(X.shape)
 
-y = np.array(df['results'], dtype="|S6")
+y = np.array(df['results'])
 
 X_train, X_test, y_train, y_test = cross_validation.train_test_split(
-    X, y, test_size=0.2)
+    x, y, test_size=0.2)
 
 clf = LogisticRegression(n_jobs=-1)
 
@@ -93,17 +95,32 @@ accuracy = clf.score(X_test, y_test)
 # forecast_set = clf.predict(X_lately)
 print(accuracy)
 
-teama = 'OMG'
-teamb = 'VG'
+teama = 'SKT'
+teamb = 'AHQ'
 
 teama = team_order_change(teama)
 teamb = team_order_change(teamb)
 
-result = clf.predict([teama, teamb])
+print(teama,teamb)
 
-result = str(result.tostring()).split('.')[0][2]
+X = np.append(X,[[75,233]],axis=0)
 
-print(list_result[int(result)])
+x = preprocessing.scale(X)
+
+print(X.shape)
+print(x)
+
+print(x[-1])
+
+result = clf.predict(x[-1])
+
+print(type(result))
+
+result = np.array_str(result)
+
+print(type(result))
+
+print(list_result[int(result[2])])
 
 # print (team_order)
 
@@ -111,7 +128,7 @@ print(list_result[int(result)])
 
 # print(len(results),len(df))
 #
-print(df.head())
+# print(df.head())
 
 # print(df.head(), len(df))
 #
