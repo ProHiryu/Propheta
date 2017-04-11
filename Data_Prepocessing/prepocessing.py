@@ -66,7 +66,6 @@ for line in df.values:
     else:
         results.append(np.nan)
 
-print(sorted(results))
 df['results'] = results
 
 teams = sorted(teams)
@@ -102,7 +101,7 @@ y = np.array(df['results'])
 for line in df.values:
     cur.execute('''INSERT INTO Games (team1,team2,result) VALUES ( ?, ?, ?)''',
                 (line[2], line[3], line[7]))
-    # print("{:8d}{:8d}{:6d}".format(line[2], line[3], line[6]))
+    print("{:8d}{:8d}{:6d}".format(line[2], line[3], line[7]))
 
 conn1.commit()
 
