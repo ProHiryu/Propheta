@@ -7,9 +7,11 @@
   - Selenium
   - Sqlite3
   - PyQt4
-  -
 + Mechine Learning:
-  - SVM
+  - [Linearregression](/Data_Processing/regression)
+  - [Logisticregression](/Data_Processing/regression)
+  - [KNN](/Data_Processing/KNN)
+  - [SVM](/Data_Processing/svm)
   - Tensorflow
 
 ### **just a little project by someone**
