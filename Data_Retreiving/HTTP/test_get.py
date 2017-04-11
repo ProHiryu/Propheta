@@ -32,5 +32,3 @@ if r.status_code == 200:
     data = json.loads(r.text)
 
 pprint(data['content']['body']['profile'])
-
-data.
