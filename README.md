@@ -7,6 +7,7 @@
   - Selenium
   - Sqlite3
   - PyQt4
+  - requests
 + Mechine Learning:
   - [Linearregression](/Data_Processing/regression)
   - [Logisticregression](/Data_Processing/regression)
