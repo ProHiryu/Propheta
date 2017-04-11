@@ -9,6 +9,20 @@ from matplotlib import style
 
 style.use('ggplot')
 
+conn1 = sqlite3.connect('game_data.sqlite')
+cur = conn1.cursor()
+
+cur.executescript('''
+DROP TABLE IF EXISTS Games;
+
+CREATE TABLE Games (
+    id             INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+    team1          INTEGER,
+    team2          INTEGER,
+    result         INTEGER
+);
+''')
+
 
 def team_order_change(x):
     return team_order[x]
@@ -78,17 +92,24 @@ df['team2'] = team2
 X = np.array(df[['team1', 'team2']])
 x = preprocessing.scale(X)
 
-print(x)
-print(X.shape)
+# print(x)
+# print(X.shape)
 
 y = np.array(df['results'])
+
+for line in df.values:
+    cur.execute('''INSERT INTO Games (team1,team2,result) VALUES ( ?, ?, ?)''',
+                (line[2], line[3], line[6]))
+    print("{:8d}{:8d}{:6d}".format(line[2], line[3], line[6]))
+
+conn1.commit()
 
 X_train, X_test, y_train, y_test = cross_validation.train_test_split(
     x, y, test_size=0.2)
 
 clf = LogisticRegression(n_jobs=-1)
 
-print(y)
+# print(y)
 
 clf.fit(X_train, y_train)
 accuracy = clf.score(X_test, y_test)
@@ -101,25 +122,25 @@ teamb = 'AHQ'
 teama = team_order_change(teama)
 teamb = team_order_change(teamb)
 
-print(teama,teamb)
+print(teama, teamb)
 
-X = np.append(X,[[75,233]],axis=0)
+X = np.append(X, [[75, 233]], axis=0)
 
 x = preprocessing.scale(X)
 
-print(X.shape)
-print(x)
+# print(X.shape)
+# print(x)
 
-print(x[-1])
+# print(x[-1])
 
 result = clf.predict(x[-1])
 
-print(type(result))
+# print(type(result))
 
 result = np.array_str(result)
 
-print(type(result))
-
+# print(type(result))
+#
 print(list_result[int(result[2])])
 
 # print (team_order)
@@ -136,3 +157,4 @@ print(list_result[int(result[2])])
 
 
 coon.close()
+conn1.close()
