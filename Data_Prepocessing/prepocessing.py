@@ -39,33 +39,34 @@ for line in df.values:
         teams.append(line[3])
     if line[2] not in teams:
         teams.append(line[2])
-    if (line[4], line[5]) == (1, 0):
+    if [line[4], line[5]] == [1, 0]:
         results.append(1)
-    elif (line[4], line[5]) == (2, 0):
+    elif [line[4], line[5]] == [2, 0]:
         results.append(2)
-    elif (line[4], line[5]) == (2, 1):
+    elif [line[4], line[5]] == [2, 1]:
         results.append(3)
-    elif (line[4], line[5]) == (3, 0):
+    elif [line[4], line[5]] == [3, 0]:
         results.append(4)
-    elif (line[4], line[5]) == (3, 1):
+    elif [line[4], line[5]] == [3, 1]:
         results.append(5)
-    elif (line[4], line[5]) == (3, 2):
+    elif [line[4], line[5]] == [3, 2]:
         results.append(6)
-    elif (line[5], line[4]) == (1, 0):
+    elif [line[5], line[4]] == [1, 0]:
         results.append(-1)
-    elif (line[5], line[4]) == (2, 0):
+    elif [line[5], line[4]] == [2, 0]:
         results.append(-2)
-    elif (line[5], line[4]) == (2, 1):
+    elif [line[5], line[4]] == [2, 1]:
         results.append(-3)
-    elif (line[5], line[4]) == (3, 0):
+    elif [line[5], line[4]] == [3, 0]:
         results.append(-4)
-    elif (line[5], line[4]) == (3, 1):
+    elif [line[5], line[4]] == [3, 1]:
         results.append(-5)
-    elif (line[5], line[4]) == (3, 2):
+    elif [line[5], line[4]] == [3, 2]:
         results.append(-6)
     else:
         results.append(np.nan)
 
+print(sorted(results))
 df['results'] = results
 
 teams = sorted(teams)
@@ -96,11 +97,12 @@ x = preprocessing.scale(X)
 # print(X.shape)
 
 y = np.array(df['results'])
+# print(y)
 
 for line in df.values:
     cur.execute('''INSERT INTO Games (team1,team2,result) VALUES ( ?, ?, ?)''',
-                (line[2], line[3], line[6]))
-    print("{:8d}{:8d}{:6d}".format(line[2], line[3], line[6]))
+                (line[2], line[3], line[7]))
+    # print("{:8d}{:8d}{:6d}".format(line[2], line[3], line[6]))
 
 conn1.commit()
 
