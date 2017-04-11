@@ -74,7 +74,8 @@ team_order = dict()
 for i in range(len(teams)):
     team_order[teams[i]] = (i + 1)
 
-pickle.dump(team_order,open("team_order.pickle","wb"))
+with open("team_order.pickle","wb") as f:
+    pickle.dump(team_order,f)
 
 team1 = []
 team2 = []
@@ -115,32 +116,32 @@ accuracy = clf.score(X_test, y_test)
 # forecast_set = clf.predict(X_lately)
 print(accuracy)
 
-teama = 'SKT'
-teamb = 'AHQ'
-
-teama = team_order_change(teama)
-teamb = team_order_change(teamb)
-
-print(teama, teamb)
-
-X = np.append(X, [[75, 233]], axis=0)
-
-x = preprocessing.scale(X)
-
-# print(X.shape)
-# print(x)
-
-# print(x[-1])
-
-result = clf.predict(x[-1])
-
-# print(type(result))
-
-result = np.array_str(result)
-
-# print(type(result))
+# teama = 'SKT'
+# teamb = 'AHQ'
 #
-print(list_result[int(result[2])])
+# teama = team_order_change(teama)
+# teamb = team_order_change(teamb)
+#
+# print(teama, teamb)
+#
+# X = np.append(X, [[75, 233]], axis=0)
+#
+# x = preprocessing.scale(X)
+#
+# # print(X.shape)
+# # print(x)
+#
+# # print(x[-1])
+#
+# result = clf.predict(x[-1])
+#
+# # print(type(result))
+#
+# result = np.array_str(result)
+#
+# # print(type(result))
+# #
+# print(list_result[int(result[2])])
 
 # print (team_order)
 
