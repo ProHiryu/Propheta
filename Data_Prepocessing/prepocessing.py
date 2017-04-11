@@ -4,10 +4,7 @@ import pandas as pd
 import numpy as np
 from sklearn import preprocessing, cross_validation, svm
 from sklearn.linear_model import LogisticRegression
-import matplotlib.pyplot as plt
-from matplotlib import style
-
-style.use('ggplot')
+import pickle
 
 conn1 = sqlite3.connect('game_data.sqlite')
 cur = conn1.cursor()
@@ -76,6 +73,8 @@ team_order = dict()
 
 for i in range(len(teams)):
     team_order[teams[i]] = (i + 1)
+
+pickle.dump(team_order,open("team_order.pickle","wb"))
 
 team1 = []
 team2 = []
