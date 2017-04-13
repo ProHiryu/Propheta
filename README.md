@@ -13,6 +13,6 @@
   - [Logisticregression](/Data_processing/regression)
   - [KNN](/Data_processing/KNN)
   - [SVM](/Data_processing/svm)
-  - Tensorflow
+  - [Tensorflow](/Data_processing/NN)
 
 ### **just a little project by someone**
