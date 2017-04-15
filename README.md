@@ -9,10 +9,10 @@
   - PyQt4
   - requests
 + Mechine Learning:
-  - [Linearregression](/Data_processing/regression)
-  - [Logisticregression](/Data_processing/regression)
-  - [KNN](/Data_processing/KNN)
-  - [SVM](/Data_processing/svm)
-  - [Tensorflow](/Data_processing/NN)
+  - [Linearregression](/Data_Processing/regression)
+  - [Logisticregression](/Data_Processing/regression)
+  - [KNN](/Data_Processing/KNN)
+  - [SVM](/Data_Processing/svm)
+  - [Tensorflow](/Data_Processing/NN)
 
 ### **just a little project by someone**
