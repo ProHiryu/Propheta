@@ -29,7 +29,7 @@ for i in range(len(y)):
     elif y[i] == '0:2':
         y[i] = 4
 
-y = np.array(y,dtype="|S6")
+y = np.array(y, dtype="|S6")
 
 print(y)
 
@@ -49,7 +49,5 @@ teamb = input('odd2 : ')
 example_measures = np.array([teama, teamb])
 
 result = clf.predict(example_measures)
-
-result = np.array_str(result)
 
 print(result)
