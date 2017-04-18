@@ -6,7 +6,8 @@ from sklearn import cross_validation, preprocessing
 
 conn = sqlite3.connect('lpl.sqlite')
 
-sql = 'select * from lpl_2017_spring'
+sql = 'select * from '
+league = ['lpl_2017_spring','lpl_2016_spring','lpl_2016_summer','lck_2017_spring','lck_2016_spring','lck_2016_summer']
 
 results = []
 teams = []
