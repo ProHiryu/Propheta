@@ -13,6 +13,9 @@ results = []
 teams = []
 list_result = {1: '2:0', 2: '2:1', 3: '1:2', 4: '0:2'}
 
+def get_df(database,table):
+    
+
 df = pd.read_sql(sql, conn, index_col='id')
 
 X = np.array(df[['odd1', 'odd2']])
