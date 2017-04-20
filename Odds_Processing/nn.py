@@ -3,6 +3,7 @@ import numpy as np
 import sqlite3
 import pandas as pd
 from sklearn import cross_validation, preprocessing
+import pickle
 
 leagues = ['lpl_2017_spring', 'lpl_2016_spring', 'lpl_2016_summer',
            'lck_2017_spring', 'lck_2016_spring', 'lck_2016_summer']
@@ -127,7 +128,7 @@ def train_neural_network(x):
     optimizer = tf.train.AdamOptimizer(learning_rate=0.001).minimize(cost)
 
     with tf.Session() as sess:
-        sess.run(tf.initialize_all_variables())
+        sess.run(tf.global_variables_initializer())
 
         for epoch in range(hm_epochs):
             epoch_loss = 0
@@ -154,10 +155,10 @@ def train_neural_network(x):
 
 while(True):
     accuracy = train_neural_network(x)
-    if accuracy >= 0.47:
-        with open('model.pickle', 'w') as pickle:
-            pickle.dump(hidden_1_layer, hidden_2_layer,
-                        hidden_3_layer, output_layer)
+    if accuracy >= 0.45:
+        with open('model.pickle', 'wb') as f:
+            pickle.dump([hidden_1_layer, hidden_2_layer,
+                        hidden_3_layer, output_layer],f)
         break
     else:
         pass
