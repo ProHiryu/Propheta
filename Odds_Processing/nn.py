@@ -153,15 +153,15 @@ def train_neural_network(x):
 
         return accuracy.eval({x: test_x, y: test_y})
 
-while(True):
-    accuracy = train_neural_network(x)
-    if accuracy >= 0.45:
-        with open('model.pickle', 'wb') as f:
-            pickle.dump([hidden_1_layer, hidden_2_layer,
-                        hidden_3_layer, output_layer],f)
-        break
-    else:
-        pass
+# while(True):
+#     accuracy = train_neural_network(x)
+#     if accuracy >= 0.45:
+#         with open('model.pickle', 'wb') as f:
+#             pickle.dump([hidden_1_layer, hidden_2_layer,
+#                         hidden_3_layer, output_layer],f)
+#         break
+#     else:
+#         pass
 
 
 # odd1 = input('odd1:')
