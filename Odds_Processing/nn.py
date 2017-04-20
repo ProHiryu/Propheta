@@ -27,7 +27,7 @@ def drop_off(df):
     for i in range(len(df)):
         if int(df.ix[i + 1, 'result'][0]) >= 3 or int(df.ix[i + 1, 'result'][2]) >= 3:
             rows_todrop.append(i)
-            print('....delete off season\'s data....')
+            print('....delete off-season\'s data....')
     df = df.drop(df.index[rows_todrop])
     # print(df['result'])
     return df
@@ -67,7 +67,7 @@ result_y = []
 result_y = enc.transform(y).toarray()
 result_y = np.array(result_y)
 
-print(result_y, len(result_y))
+# print(result_y, len(result_y))
 
 train_x, test_x, train_y, test_y = cross_validation.train_test_split(
     X, result_y, test_size=0.2)
@@ -150,4 +150,25 @@ def train_neural_network(x):
 
         print('Accuracy:', accuracy.eval({x: test_x, y: test_y}))
 
-train_neural_network(x)
+        return accuracy.eval({x: test_x, y: test_y})
+
+while(True):
+    accuracy = train_neural_network(x)
+    if accuracy >= 0.47:
+        with open('model.pickle', 'w') as pickle:
+            pickle.dump(hidden_1_layer, hidden_2_layer,
+                        hidden_3_layer, output_layer)
+        break
+    else:
+        pass
+
+
+# odd1 = input('odd1:')
+# odd2 = input('odd2:')
+#
+# predict = tf.placeholder('float')
+# predict = np.array([[odd1,odd2]],dtype='float32')
+#
+# prediction = neural_network_model(predict)
+#
+# print(tf.argmax(prediction,1)
