@@ -163,6 +163,17 @@ def train_neural_network(x):
 #     else:
 #         pass
 
+init_op = tf.global_variables_initializer()
+saver = tf.train.Saver()
+
+with tf.Session() as sess:
+    sess.run(init_op)
+    while (True):
+        accuracy = train_neural_network(x)
+        if accuracy >= 0.45:
+            save_path = saver.save(sess, "model.ckpt")
+            print("Model saved in file: %s" % save_path)
+
 
 # odd1 = input('odd1:')
 # odd2 = input('odd2:')
