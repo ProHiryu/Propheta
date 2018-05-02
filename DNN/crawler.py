@@ -18,10 +18,26 @@ def get_game_id(year = 2018,month = 3):
 
     response = requests.request("GET", url, headers=headers, params=querystring)
 
+    '''
+    Response.text's Structure :
+        - code : 200(success)
+        - content
+            - type : json(type of this response)
+            - body
+                - matches
+                    [ list of matches ]
+                        - id
+                        - status
+                        - league
+                        - scheduled_at
+                        - teams
+    '''
+
     text = json.loads(response.text)
+    
+
+    print(text['content']['body']['matches'][0].keys())
 
 
-
-    pprint(text)
 
 get_game_id()
