@@ -3,16 +3,25 @@
 # Copyright (c) 2018 - songheqi <songheqi1996@gmail.com>
 
 import requests
+import json
+from pprint import pprint
 
-url = "http://api.best.gg/v1/live/match/lol/17972"
+def get_game_id(year = 2018,month = 3):
+    url = "http://api.best.gg/v1/schedule/list"
 
-querystring = {":acceptLanguage":"zh-cn"}
+    querystring = {":acceptLanguage":"zh-cn","leagues":"","year":year,"month":month}
 
-headers = {
-    'cache-control': "no-cache",
-    'postman-token': "81c9d8b5-57fc-50ee-35a3-b85da9cb1e0c"
-    }
+    headers = {
+        'cache-control': "no-cache",
+        'postman-token': "c0b59334-2f3e-5391-78d4-a1f0affebfb0"
+        }
 
-response = requests.request("GET", url, headers=headers, params=querystring)
+    response = requests.request("GET", url, headers=headers, params=querystring)
 
-print(response.text)
+    text = json.loads(response.text)
+
+
+
+    pprint(text)
+
+get_game_id()
