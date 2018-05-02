@@ -34,10 +34,21 @@ def get_game_id(year = 2018,month = 3):
     '''
 
     text = json.loads(response.text)
-    
 
-    print(text['content']['body']['matches'][0].keys())
+    game_list = []
 
+    if text['code'] == 200:
+        for match in text['content']['body']['matches']:
+            game_id, game_league, game_schedule, game_teamA, game_teamB, game_scoreA, game_scoreB = \
+                match['id'], match['league'], match['scheduled_at'], match['teams'][0]['team'], \
+                match['teams'][1]['team'], match['teams'][0]['score'], match['teams'][1]['score']
 
+            game_dict = {'id':game_id,'league':game_league,'schedule':game_schedule,'teamA':game_teamA, \
+                'teamB':game_teamB,'scoreA':game_scoreA,'scoreB':game_scoreB}
 
-get_game_id()
+            game_list.append(game_dict)
+        return game_list
+
+    else:
+        return False
+
