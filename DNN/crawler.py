@@ -6,7 +6,7 @@ import requests
 import json
 from pprint import pprint
 
-def get_game_id(year = 2018,month = 3):
+def get_game_list(year = 2018,month = 3):
     url = "http://api.best.gg/v1/schedule/list"
 
     querystring = {":acceptLanguage":"zh-cn","leagues":"","year":year,"month":month}
@@ -52,3 +52,4 @@ def get_game_id(year = 2018,month = 3):
     else:
         return False
 
+def 
