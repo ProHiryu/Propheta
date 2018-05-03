@@ -98,7 +98,17 @@ def get_game_details(match_num = 17972):
                                 - image_url
                                 - players
                                     [ list of players ( 5 ) ]
-                                        - 
+                                        - id
+                                        - name
+                                        - kills
+                                        - deaths
+                                        - assists
+                                        - champion
+                                            - _version
+                                            - _id
+                                            - title
+                                            - tooltip_string
+                                            - image_url
     '''
 
     text = json.loads(response.text)
