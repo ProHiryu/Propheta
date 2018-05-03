@@ -52,4 +52,38 @@ def get_game_list(year = 2018,month = 3):
     else:
         return False
 
-def 
+def get_game_details(match_num = 17972):
+    import requests
+
+    url = "http://api.best.gg/v1/live/match/lol/" + str(match_num)
+
+    querystring = {":acceptLanguage":"zh-cn"}
+
+    headers = {
+        'cache-control': "no-cache",
+        'postman-token': "dd3c07fe-8776-58ba-7c35-c5d526a90752"
+        }
+
+    response = requests.request("GET", url, headers=headers, params=querystring)
+
+    '''
+    Response.text's Structure :
+        - code : 200(success)
+        - content
+            - type : json(type of this response)
+            - body
+                - matches
+                    [ list of matches ]
+                        - id
+                        - status
+                        - league
+                        - scheduled_at
+                        - teams
+    '''
+
+    text = json.loads(response.text)
+
+    print(text['content']['body'].keys())
+
+
+get_game_details()
