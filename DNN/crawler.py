@@ -68,22 +68,42 @@ def get_game_details(match_num = 17972):
 
     '''
     Response.text's Structure :
-        - code : 200(success)
+        - code : 200( success )
         - content
-            - type : json(type of this response)
+            - type : json ( type of this response )
             - body
-                - matches
-                    [ list of matches ]
+                - streams
+                - live_match
+                - match
+                    - league
+                    - title
+                    - type
+                    - teams
+                    - scheduled_at
+                    - preview
+                - sets
+                    [ list of sets ]
                         - id
-                        - status
-                        - league
-                        - scheduled_at
-                        - teams
+                        - title
+                        - number
+                        - videos
+                        - participants_teams
+                            [ list of participants_teams ( 2 ) ]
+                                - is_win
+                                - kills
+                                - assists
+                                - deaths
+                                - slug
+                                - name
+                                - image_url
+                                - players
+                                    [ list of players ( 5 ) ]
+                                        - 
     '''
 
     text = json.loads(response.text)
 
-    print(text['content']['body'].keys())
+    print(text['content']['body']['sets'][0]['participants_teams'][1]['players'][0].keys())
 
 
 get_game_details()
