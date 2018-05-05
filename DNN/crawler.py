@@ -35,6 +35,18 @@ def get_game_list(year = 2018,month = 3):
 
     text = json.loads(response.text)
 
+    '''
+    game_list's Structure :
+        [ list of games ]
+            - id
+            - league
+            - schedule
+            - teamA
+            - teamB
+            - scoreA
+            - scoreB
+    '''
+
     game_list = []
 
     if text['code'] == 200:
@@ -52,12 +64,12 @@ def get_game_list(year = 2018,month = 3):
     else:
         return False
 
-def get_game_details(match_num = 17972):
-    import requests
 
+
+def get_game_details(match_num = 17972):
     url = "http://api.best.gg/v1/live/match/lol/" + str(match_num)
 
-    querystring = {":acceptLanguage":"zh-cn"}
+    querystring = {":acceptLanguage":"en-us"}
 
     headers = {
         'cache-control': "no-cache",
@@ -113,7 +125,49 @@ def get_game_details(match_num = 17972):
 
     text = json.loads(response.text)
 
-    print(text['content']['body']['sets'][0]['participants_teams'][1]['players'][0].keys())
+    '''
+    set_list's Structure :
+        [ list of sets ]
+            - id
+            - number
+            - participants_teams
+                [ list of participants_teams ( 2 ) ]
+                    - is_win
+                    - kills
+                    - assists
+                    - deaths
+                    - slug
+                    - name
+                    - players
+                        [ list of players ( 5 ) ]
+                            - id
+                            - name
+                            - kills
+                            - deaths
+                            - assists
+            - version
+    '''
+
+    set_list = []
+
+    if text['code'] == 200:
+        for set_ in text['content']['body']['sets']:
+            version = set_['participants_teams'][0]['players'][0]['champion']['_version']
+            del set_['videos']
+            for participants_team in set_['participants_teams']:
+                del participants_team['image_url']
+                for player in participants_team['players']:
+                    del player['champion']
+            set_['version'] = version
+
+            set_list.append(set_)
+        return set_list
+
+    else:
+        return False
 
 
-get_game_details()
+
+sets = get_game_details()
+if sets:
+    print(sets[0].keys())
