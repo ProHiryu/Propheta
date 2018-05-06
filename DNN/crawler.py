@@ -9,7 +9,7 @@ from pprint import pprint
 def get_game_list(year = 2018,month = 3):
     url = "http://api.best.gg/v1/schedule/list"
 
-    querystring = {":acceptLanguage":"zh-cn","leagues":"","year":year,"month":month}
+    querystring = {":acceptLanguage":"en-us","leagues":"","year":year,"month":month}
 
     headers = {
         'cache-control': "no-cache",
