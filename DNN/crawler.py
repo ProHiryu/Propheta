@@ -165,9 +165,3 @@ def get_game_details(match_num = 17972):
 
     else:
         return False
-
-
-
-sets = get_game_details()
-if sets:
-    print(sets[0].keys())
