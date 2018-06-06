@@ -9,3 +9,6 @@ def create_database():
 
 def get_data():
     pass
+
+def insert_data():
+    pass
