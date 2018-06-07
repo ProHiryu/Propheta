@@ -12,3 +12,6 @@ def get_data():
 
 def insert_data():
     pass
+
+def delete_data():
+    pass
