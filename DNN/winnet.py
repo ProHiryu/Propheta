@@ -48,7 +48,7 @@ def final(inputs, n_classes, scope_name):
 class WinNet:
     def __init__(self):
         self.lr = 0.01
-        self.batch_size = 60
+        self.batch_size = 128
         self.keep_prob = tf.constant(0.75)
         self.gstep = tf.Variable(0, dtype=tf.int32,
                                 trainable=False, name="global_step")
@@ -57,8 +57,8 @@ class WinNet:
         need to be decided self.n_test and self.traning
         '''
         self.n_classes = 2
-        self.skip_step = 20
-        self.n_test = 46
+        self.skip_step = 100
+        self.n_test = 475
         self.trainning = None
 
 
@@ -80,9 +80,11 @@ class WinNet:
         '''
         linear1 = linear_relu(self.game, 300, scope_name='linear1')
         dropout1 = dropout(linear1, self.keep_prob, scope_name='dropout1')
-        linear2 = linear_relu(dropout1, 50, scope_name='linear2')
+        linear2 = linear_relu(dropout1, 300, scope_name='linear2')
         dropout2 = dropout(linear2, self.keep_prob, scope_name='dropout2')
-        self.logits = final(dropout2, self.n_classes, scope_name='output')
+        linear3 = linear_relu(dropout2, 50, scope_name='linear3')
+        dropout3 = dropout(linear3, self.keep_prob, scope_name='dropout3')
+        self.logits = final(dropout3, self.n_classes, scope_name='output')
 
 
     def create_loss(self):
@@ -209,4 +211,4 @@ class WinNet:
 if __name__ == '__main__':
     model = WinNet()
     model.build()
-    model.train(n_epochs=15)
+    model.train(n_epochs=150)
