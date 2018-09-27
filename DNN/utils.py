@@ -80,7 +80,7 @@ def _one_hot(data, vocab, insert=False):
                 new_item = np.array([0] * (vocab_dict[item] - 1) + [1] + [0] * (lenth - vocab_dict[item]))
                 new_row.append(new_item)
         except:
-            if row:
+            if row == "TRUE":
                 new_row = [1, 0]
             else:
                 new_row = [0, 1]
@@ -106,20 +106,40 @@ def _one_hot(data, vocab, insert=False):
     return np.array(new_data, dtype='float32')
 
 
+def drop_duplicates(row):
+    row = np.array(row)
+    sets = set()
+    new_row = []
+    for i in row[1:]:
+        if i not in sets:
+            new_row.append(i)
+            sets.add(i)
+        else:
+            pass
+    return pd.Series(new_row)
+
+
 def read_data(test_rate=0.3, val_rate=0):
     '''
     read data from file
     '''
     df = pd.read_csv(save_path + save_file_name)
+    df = df.apply(drop_duplicates ,axis=1)
+    df = df.iloc[:,:11]
+    df = df.dropna(axis=0, how='any')
+    # print(df)
+
     x, y = df.iloc[:,:-1], df.iloc[:,-1]
-    x = np.array(x)[:,1:].tolist()
+    x = np.array(x).tolist()
     y = np.array(y).tolist()
+    # print(x[0], y)
 
     vocab = list(set([title for row in x for title in row]))
     labels = ['False', 'True']
     X = _one_hot(x, vocab, insert=True)
     Y = _one_hot(y, labels)
     X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=test_rate, random_state=21)
+    # print(X_test.shape)
     return  (X_train, y_train), (X_test, y_test)
 
 
