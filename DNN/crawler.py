@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2018 - songheqi <songheqi1996@gmail.com>
 
+
 import requests
 import json
 from pprint import pprint
@@ -145,6 +146,7 @@ def get_game_details(match_num = 17972):
                             - kills
                             - deaths
                             - assists
+                            - title
             - version
     '''
 
@@ -157,6 +159,7 @@ def get_game_details(match_num = 17972):
             for participants_team in set_['participants_teams']:
                 del participants_team['image_url']
                 for player in participants_team['players']:
+                    player['title'] = player['champion']['title']
                     del player['champion']
             set_['version'] = version
 
