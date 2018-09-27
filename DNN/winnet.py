@@ -46,9 +46,9 @@ def final(inputs, n_classes, scope_name):
 
 
 class WinNet:
-    def __init__(self, params):
+    def __init__(self):
         self.lr = 0.01
-        self.batch_size = 128
+        self.batch_size = 60
         self.keep_prob = tf.constant(0.75)
         self.gstep = tf.Variable(0, dtype=tf.int32,
                                 trainable=False, name="global_step")
@@ -56,9 +56,9 @@ class WinNet:
         '''
         need to be decided self.n_test and self.traning
         '''
-        self.n_classes = 10
+        self.n_classes = 2
         self.skip_step = 20
-        self.n_test = None
+        self.n_test = 46
         self.trainning = None
 
 
@@ -91,7 +91,7 @@ class WinNet:
         use sigmoid cross entropy with logits as the loss function
         '''
         with tf.name_scope('loss'):
-            entropy = tf.nn.sigmoid_cross_entropy_with_logits(labels=self.label, logits=self.logits)
+            entropy = tf.nn.softmax_cross_entropy_with_logits_v2(labels=self.label, logits=self.logits)
             self.loss = tf.reduce_mean(entropy, name='loss')        
 
 
@@ -121,7 +121,7 @@ class WinNet:
         Count the number of right predictions in a batch
         '''
         with tf.name_scope('predict'):
-            preds = tf.nn.sigmoid(self.logits)
+            preds = tf.nn.softmax(self.logits)
             correct_preds = tf.equal(tf.argmax(preds, 1), tf.argmax(self.label, 1))
             self.accuracy = tf.reduce_sum(tf.cast(correct_preds, tf.float32))
 
@@ -135,7 +135,7 @@ class WinNet:
         self.create_loss()
         self.optimize()
         self.eval()
-        # self.summary()
+        self.summary()
 
     
     def train_one_epoch(self, sess, saver, init, writer, epoch, step):
