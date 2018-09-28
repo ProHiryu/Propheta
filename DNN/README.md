@@ -11,3 +11,31 @@ Use 2018 lol games to feed the net, and predict.
 
 ## Version 1.0
 
+### Graphs
+
+![](http://wx4.sinaimg.cn/mw690/0060lm7Tly1fvoyopjjuaj31hg15o0zb.jpg)
+
+### Usage
+
+```bash
+$ python winnet.py
+```
+
+### Requirements
+
+- tensorflow > 1.5
+- numpy
+- pandas
+- tqdm
+- sklearn
+
+### Configuration
+
+You can set the time period you want to grab in the configuration file and set the total number of heroes in the current LOL, but you can also set the location and name of the data file
+
+## To DO
+
+- sparse inputs
+- improve networks performance
+
+Hope you can help!
